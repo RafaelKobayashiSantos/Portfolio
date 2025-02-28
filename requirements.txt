@@ -1,0 +1,5 @@
+beautifulsoup4
+pandas
+requests
+streamlit
+openpyxl  # Para salvar o Excel
