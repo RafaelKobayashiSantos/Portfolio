@@ -7,11 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/18qpOAItoFM0b23hlC4hVKcXkmlt6aJ9c
 """
 
-!pip install bs4
-!pip install pandasql
-!pip install requests
-!pip install streamlit
-!pip install gradio --quiet
 
 import streamlit as st
 from bs4 import BeautifulSoup
