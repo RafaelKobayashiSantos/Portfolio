@@ -18,7 +18,7 @@ import re
 st.set_page_config(page_title="🏡 Extrator de Imobiliárias", page_icon="🏠", layout="wide")
 
 # Cabeçalho com imagem e título
-st.image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEfWkz0vJws3MqB-P9u4BSatDgUZvDDUdG6Q&s", width=200)
+#st.image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEfWkz0vJws3MqB-P9u4BSatDgUZvDDUdG6Q&s", width=200)
 st.title("🏡 Extrator de Imobiliárias")
 st.write("Cole o código HTML de uma página e extraia automaticamente as informações das imobiliárias, incluindo e-mails dos sites!")
 
