@@ -18,7 +18,7 @@ import re
 st.set_page_config(page_title="🏡 Extrator de Imobiliárias", page_icon="🏠", layout="wide")
 
 # Cabeçalho com imagem e título
-st.image("https://www.abcdacomunicacao.com.br/wp-content/uploads/image013-2.jpg", width=200)
+st.image("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.facebook.com%2Fportalzuk%2F&psig=AOvVaw0tk41DJcRgdTE3uakj6hco&ust=1740851194051000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJifmdn35osDFQAAAAAdAAAAABAE", width=200)
 st.title("🏡 Extrator de Imobiliárias")
 st.write("Cole o código HTML de uma página e extraia automaticamente as informações das imobiliárias, incluindo e-mails dos sites!")
 
