@@ -16,7 +16,7 @@ def limpar_texto(texto):
 # ------------------------
 # SCRAPER
 # ------------------------
-async def main(query="salão de beleza em Cotia SP"):
+async def main(query):
 
     async with async_playwright() as p:
 
