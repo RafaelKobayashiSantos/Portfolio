@@ -24,7 +24,7 @@ async def main(query="salão de beleza em Cotia SP"):
         page = await browser.new_page()
 
         # abre maps
-        await page.goto("https://www.google.com/maps")
+        await page.goto("https://www.google.com/maps?hl=pt-BR")
 
         # busca
         await page.fill('input[name="q"]', query)
@@ -73,4 +73,4 @@ async def main(query="salão de beleza em Cotia SP"):
 
         await browser.close()
 
-        return dado
+        return dados
