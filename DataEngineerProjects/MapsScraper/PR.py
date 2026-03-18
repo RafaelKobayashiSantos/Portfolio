@@ -1,59 +1,76 @@
-
-
-from playwright.sync_api import sync_playwright
+import asyncio
+from playwright.async_api import async_playwright
 import time
 import re
 
 
 # ------------------------
-# LIMPEZA (igual você já fazia)
+# LIMPEZA
 # ------------------------
 def limpar_texto(texto):
 
     texto = re.sub(r'[\ue000-\uf8ff]', '', texto)
-    texto = texto.strip()
-
-    return texto
+    return texto.strip()
 
 
 # ------------------------
 # SCRAPER
 # ------------------------
-def main(query="salão de beleza em Cotia SP"):
+async def main(query="salão de beleza em Cotia SP"):
 
-    with sync_playwright() as p:
+    async with async_playwright() as p:
 
-        browser = p.chromium.launch(headless=True)
-        page = browser.new_page()
+        browser = await p.chromium.launch(headless=True)
+        page = await browser.new_page()
 
         # abre maps
-        page.goto("https://www.google.com/maps")
+        await page.goto("https://www.google.com/maps")
 
-        # busca (bem mais simples que selenium)
-        page.fill('input[name="q"]', query)
-        page.press('input[name="q"]', "Enter")
+        # busca
+        await page.fill('input[name="q"]', query)
+        await page.press('input[name="q"]', "Enter")
 
-        # espera resultados carregarem
-        page.wait_for_selector("div[role='feed']")
+        # espera resultados
+        await page.wait_for_selector("div[role='feed']")
 
         # scroll
-        for _ in range(10):
-            page.mouse.wheel(0, 3000)
-            time.sleep(1)
+        feed = page.locator('div[role="feed"]')
+
+        last_count = 0
+
+        for _ in range(20):
+
+            await feed.evaluate("el => el.scrollTop = el.scrollHeight")
+            await asyncio.sleep(2)
+
+            places = page.locator("div.Nv2PK")
+            count = await places.count()
+
+            print("Resultados:", count)
+
+            if count >=80:
+                break
+
+            if count == last_count:
+                break
+
+            last_count = count
 
         # pega os lugares
-        places = page.locator("div.Nv2PK")
+        places = page.locator("div[role='article']")
 
         dados = []
 
-        for i in range(places.count()):
+        count = await places.count()
 
-            texto = places.nth(i).inner_text()
+        for i in range(count):
+
+            texto = await places.nth(i).inner_text()
 
             texto = limpar_texto(texto)
 
             dados.append(texto)
 
-        browser.close()
+        await browser.close()
 
-        return dados
+        return dado
