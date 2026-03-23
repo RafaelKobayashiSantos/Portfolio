@@ -5,7 +5,7 @@ import re
 
 
 # ------------------------
-# LIMPEZA
+# LIMPEZA INICIAL
 # ------------------------
 def limpar_texto(texto):
 
@@ -36,12 +36,14 @@ async def main(query):
         # scroll
         feed = page.locator('div[role="feed"]')
 
-        last_count = 0
+        max_time = 30
+
+        timer = time.time()
 
         for _ in range(20):
 
             await feed.evaluate("el => el.scrollTop = el.scrollHeight")
-            await asyncio.sleep(2)
+            await asyncio.sleep(1)
 
             places = page.locator("div.Nv2PK")
             count = await places.count()
@@ -51,11 +53,13 @@ async def main(query):
             if count >=80:
                 break
 
-            if count == last_count:
+            if time.time() - timer > max_time:
+                print("⏱️ Tempo limite atingido")
                 break
 
             last_count = count
 
+        print('Extração concluída')
         # pega os lugares
         places = page.locator("div[role='article']")
 
